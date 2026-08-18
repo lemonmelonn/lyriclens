@@ -1,0 +1,12 @@
+dash
+dash-bootstrap-components
+dash-mantine-components
+os
+logging
+pandas
+re
+dotenv
+contractions
+lyricsgenius
+transformers
+spotipy
