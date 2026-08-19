@@ -1,20 +1,10 @@
-# Web Framework & Dashboard UI
-dash>=2.14.0
-dash-bootstrap-components>=1.5.0
-dash-mantine-components>=0.14.0
-plotly>=5.18.0
-gunicorn>=21.2.0
-
-# Data Manipulation & Text Processing
-pandas>=2.0.0
-contractions>=0.1.73
-
-# Music & Lyrics APIs
-spotipy>=2.23.0
-lyricsgenius>=3.0.1
-requests>=2.31.0
-python-dotenv>=1.0.0
-
-# Machine Learning & NLP Inference
-torch>=2.0.0
-transformers>=4.35.0
+dash
+dash-bootstrap-components
+dash-mantine-components
+logging
+pandas
+dotenv
+contractions
+lyricsgenius
+transformers
+spotipy
