@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 from spotipy import Spotify
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 # Load environment variables from .env
 load_dotenv()
@@ -10,13 +10,20 @@ load_dotenv()
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
-# Initialize Spotify client with user-read-currently-playing scope
-sp = Spotify(auth_manager=SpotifyOAuth(
-    client_id=CLIENT_ID,
-    client_secret=CLIENT_SECRET,
-    redirect_uri="http://127.0.0.1:5000/callback",
-    scope="user-read-currently-playing"
-))
+# # Initialize Spotify client with user-read-currently-playing scope
+# sp = Spotify(auth_manager=SpotifyOAuth(
+#     client_id=CLIENT_ID,
+#     client_secret=CLIENT_SECRET,
+#     redirect_uri="http://127.0.0.1:5000/callback",
+#     scope="user-read-currently-playing"
+# ))
+
+# Initialize Spotipy with client credentials flow (no user login required)
+auth_manager = SpotifyClientCredentials(
+    client_id=os.getenv("CLIENT_ID"),
+    client_secret=os.getenv("CLIENT_SECRET")
+)
+sp = Spotify(auth_manager=auth_manager)
 
 # Function to get details of given song
 def get_song_details(song_title, artist_name, access_token):

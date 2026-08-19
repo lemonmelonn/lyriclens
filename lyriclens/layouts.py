@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
 
 import projectinfo
-import modelinfo
+import modelinfo as modelinfo
 from data import INITIAL_DASHBOARD_DATA
 
 # Layout for the dashboard
@@ -290,8 +290,8 @@ def song_classification_page():
 
         html.Div(
             [
-                dbc.Button("Manual Search", id="manual-search-button", color="primary", className="dashboard-button me-2"),
-                dbc.Button("Spotify", id="get-current-song", color="primary", className="dashboard-button"),
+                dbc.Button("Search for a Song", id="manual-search-button", color="primary", className="dashboard-button me-2"),
+                dbc.Button("Spotify", id="get-current-song", color="primary", className="dashboard-button", style={"display": "none"}),
                 dbc.Button("Get Report", id="predict-button", color="primary", className="dashboard-button ms-auto"),
             ],
             className="button-row mt-2"

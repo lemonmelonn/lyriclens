@@ -30,5 +30,5 @@ def test_prediction(text):
     return id2label.get(pred_idx, "SAFE"), float(probs[pred_idx])
 
 # Run a test classification
-label, score = test_prediction("I love you, baby!")
+label, score = test_prediction("I want those melons")
 print(f"Prediction Result: {label} (Confidence: {score:.4f})")
