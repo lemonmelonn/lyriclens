@@ -1,14 +1,19 @@
 import os
 os.environ["USE_TF"] = "0"
-os.environ["USE_TORCH"] = "1"
 
 import logging
 
 from dash import Dash
 import dash_bootstrap_components as dbc
 
-from layouts import create_app_layout
-from callbacks import register_callbacks
+try:
+    # Relative imports for production (when run as a package via Gunicorn)
+    from .layouts import create_app_layout
+    from .callbacks import register_callbacks
+except ImportError:
+    # Absolute imports for local development (when running app.py directly)
+    from layouts import create_app_layout
+    from callbacks import register_callbacks
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

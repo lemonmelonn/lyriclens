@@ -5,7 +5,13 @@ import dash_mantine_components as dmc
 
 import projectinfo
 import modelinfo as modelinfo
-from data import INITIAL_DASHBOARD_DATA
+
+try:
+    # Relative imports for production (when run as a package via Gunicorn)
+    from .data import INITIAL_DASHBOARD_DATA
+except ImportError:
+    # Absolute imports for local development (when running layouts.py directly)
+    from data import INITIAL_DASHBOARD_DATA
 
 # Layout for the dashboard
 def dashboard_menu():

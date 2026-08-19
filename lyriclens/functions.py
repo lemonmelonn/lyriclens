@@ -10,7 +10,12 @@ import pandas as pd
 from transformers import AutoTokenizer, pipeline
 import onnxruntime as ort
 
-from spotify_functions import get_song_details
+try:
+    # Relative imports for production (when run as a package via Gunicorn)
+    from .spotify_functions import get_song_details
+except ImportError:
+    # Absolute imports for local development (when running functions.py directly)
+    from spotify_functions import get_song_details
 
 # Load environment variables from .env
 load_dotenv()

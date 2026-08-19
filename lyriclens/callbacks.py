@@ -6,10 +6,18 @@ from dash import Input, Output, State, callback, ALL, ctx, html, no_update
 from dash.exceptions import PreventUpdate
 from urllib.parse import urlparse
 
-from layouts import song_card, song_classification_page, song_label_card, verse_label_table, model_page, home_page
-from functions import load_model_from_hf, load_onnx_model, get_structured_lyrics, split_verses, clean_verses, get_model_output
-from spotify_functions import get_access_token, get_currently_playing, search_possible_songs
-from data import init_dashboard_data
+try:
+    # Relative imports for production (when run as a package via Gunicorn)
+    from .layouts import song_card, song_classification_page, song_label_card, verse_label_table, model_page, home_page
+    from .functions import load_model_from_hf, load_onnx_model, get_structured_lyrics, split_verses, clean_verses, get_model_output
+    from .spotify_functions import get_access_token, get_currently_playing, search_possible_songs
+    from .data import init_dashboard_data
+except ImportError:
+    # Absolute imports for local development (when running callbacks.py directly)
+    from layouts import song_card, song_classification_page, song_label_card, verse_label_table, model_page, home_page
+    from functions import load_model_from_hf, load_onnx_model, get_structured_lyrics, split_verses, clean_verses, get_model_output
+    from spotify_functions import get_access_token, get_currently_playing, search_possible_songs
+    from data import init_dashboard_data
 
 logger = logging.getLogger(__name__)
 
