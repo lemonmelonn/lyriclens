@@ -22,11 +22,23 @@ load_dotenv()
 
 # Initialize Genius API client
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-genius = lyricsgenius.Genius(
-    ACCESS_TOKEN,
-    timeout=15, 
-    retries=3
-)
+
+if not ACCESS_TOKEN:
+    print("⚠️  WARNING: ACCESS_TOKEN not set in environment variables!")
+    print("Set it in your Render dashboard or local .env file")
+    genius = None
+else:
+    try:
+        genius = lyricsgenius.Genius(
+            ACCESS_TOKEN,
+            timeout=15, 
+            retries=3,
+            remove_section_headers=False
+        )
+        print(f"✓ Genius client initialized successfully")
+    except Exception as e:
+        print(f"✗ Failed to initialize Genius client: {e}")
+        genius = None
 
 class ONNXTextClassifier:
     """

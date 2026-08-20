@@ -54,52 +54,52 @@ def register_callbacks(app):
         return html.Div("404: Page not found", className="dashboard-page")
     
     # Callback to fetch the currently playing song and update the song card
-    @app.callback(
-        Output("currently-listening-content", "children"),
-        Output("selected-song", "data"),
-        Input("url", "pathname"),
-        Input("get-current-song", "n_clicks")
-    )
-    def get_current_song(pathname, n_clicks):
-        if pathname not in ["/", "/classification"]:
-            raise PreventUpdate
+    # @app.callback(
+    #     Output("currently-listening-content", "children"),
+    #     Output("selected-song", "data"),
+    #     Input("url", "pathname"),
+    #     Input("get-current-song", "n_clicks")
+    # )
+    # def get_current_song(pathname, n_clicks):
+    #     if pathname not in ["/", "/classification"]:
+    #         raise PreventUpdate
 
-        try:
-            # Fetch the currently playing track from Spotify
-            current_track = get_currently_playing()
+    #     try:
+    #         # Fetch the currently playing track from Spotify
+    #         current_track = get_currently_playing()
 
-            if not current_track:
-                return song_card(error="No currently playing track found"), no_update
+    #         if not current_track:
+    #             return song_card(error="No currently playing track found"), no_update
 
-            # Add method to track details
-            current_track["method"] = "Currently Listening"
+    #         # Add method to track details
+    #         current_track["method"] = "Currently Listening"
 
-            # Print selected song details for debugging
-            print(f"\n[DEBUG] Current song: {current_track['title']} by {current_track['artist']}")
+    #         # Print selected song details for debugging
+    #         print(f"\n[DEBUG] Current song: {current_track['title']} by {current_track['artist']}")
 
-            logger.info(
-                "Fetched Spotify song details: SONG_ID=%s, SONG_TITLE=%s, SONG_ARTIST=%s, SONG_EXPLICIT=%s",
-                current_track.get("song_id"),
-                current_track.get("title"),
-                current_track.get("artist"),
-                current_track.get("explicit"),
-            )
+    #         logger.info(
+    #             "Fetched Spotify song details: SONG_ID=%s, SONG_TITLE=%s, SONG_ARTIST=%s, SONG_EXPLICIT=%s",
+    #             current_track.get("song_id"),
+    #             current_track.get("title"),
+    #             current_track.get("artist"),
+    #             current_track.get("explicit"),
+    #         )
 
-        except Exception as exc:
-            logger.exception("Failed to fetch currently playing track")
-            return song_card(error=exc), no_update
+    #     except Exception as exc:
+    #         logger.exception("Failed to fetch currently playing track")
+    #         return song_card(error=exc), no_update
 
-        selected_song = {
-            "song_id": current_track.get("song_id"),
-            "title": current_track.get("title"),
-            "artist": current_track.get("artist"),
-            "album": current_track.get("album"),
-            "album_image": current_track.get("album_image"),
-            "explicit": current_track.get("explicit"),
-            "method": current_track.get("method"),
-        }
+    #     selected_song = {
+    #         "song_id": current_track.get("song_id"),
+    #         "title": current_track.get("title"),
+    #         "artist": current_track.get("artist"),
+    #         "album": current_track.get("album"),
+    #         "album_image": current_track.get("album_image"),
+    #         "explicit": current_track.get("explicit"),
+    #         "method": current_track.get("method"),
+    #     }
 
-        return song_card(current_track), selected_song
+    #     return song_card(current_track), selected_song
     
     # Callback to predict the song label and update the song label card and verse label table
     @app.callback(

@@ -31,7 +31,7 @@ def dashboard_menu():
 # Song Card Layout (Handles both currently listening and manual search results)
 def song_card(track=None, error=None):
 
-    method = track.get("method") if track else "Currently Listening"
+    method = track.get("method") if track else "Manual Search"  # Default method if no track is provided
     # print("Album cover:", track.get("album_image") if track else "No track data")
 
     # Use placeholder image if no track is available
