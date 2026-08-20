@@ -45,7 +45,6 @@ else:
             retries=3,
             remove_section_headers=False
         )
-        genius = add_headers_to_genius(genius)
         print(f"✓ Genius client initialized successfully")
     except Exception as e:
         print(f"✗ Failed to initialize Genius client: {e}")
