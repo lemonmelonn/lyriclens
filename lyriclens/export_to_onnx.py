@@ -37,5 +37,10 @@ torch.onnx.export(
     opset_version=14,
 )
 
+# Verify the exported ONNX model
+import onnx
+model = onnx.load("./onnx_model/model.onnx")
+print(f"Model IR version: {model.ir_version}")
+
 tokenizer.save_pretrained(output_dir)
 print(f"🎉 Model exported successfully to: {output_dir.resolve()}")

@@ -23,6 +23,16 @@ load_dotenv()
 # Initialize Genius API client
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
+# Add this AFTER initializing genius
+def add_headers_to_genius(genius_client):
+    """Add proper headers to avoid 403 blocks"""
+    genius_client.session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://genius.com/'
+    })
+    return genius_client
+
 if not ACCESS_TOKEN:
     print("⚠️  WARNING: ACCESS_TOKEN not set in environment variables!")
     print("Set it in your Render dashboard or local .env file")
@@ -35,6 +45,7 @@ else:
             retries=3,
             remove_section_headers=False
         )
+        genius = add_headers_to_genius(genius)
         print(f"✓ Genius client initialized successfully")
     except Exception as e:
         print(f"✗ Failed to initialize Genius client: {e}")
