@@ -1,7 +1,6 @@
 from pathlib import Path
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
-import onnx
 
 model_id = "devanasokan/bert-lyrics-classifier"
 output_dir = Path("./onnx_model")
@@ -35,13 +34,13 @@ torch.onnx.export(
         "attention_mask": {0: "batch_size", 1: "sequence_length"},
         "logits": {0: "batch_size"},
     },
-    opset_version=12,  # Try 12 instead of 14
-    do_constant_folding=True,
+    opset_version=14,
 )
 
-# Verify
-model = onnx.load(str(onnx_path))
+# Verify the exported ONNX model
+import onnx
+model = onnx.load("./onnx_model/model.onnx")
 print(f"Model IR version: {model.ir_version}")
 
 tokenizer.save_pretrained(output_dir)
-print(f"✓ Model exported successfully to: {output_dir.resolve()}")
+print(f"🎉 Model exported successfully to: {output_dir.resolve()}")
